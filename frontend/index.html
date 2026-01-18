@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material ToDo - Logowanie</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="auth-container" class="container">
+        <div class="row">
+            <div class="col s12 m8 offset-m2 l6 offset-l3">
+                
+                <div class="card hoverable" id="login-card">
+                    <div class="card-content">
+                        <span class="card-title center-align blue-text text-darken-2">Logowanie</span>
+                        <form id="login-form">
+                            <div class="input-field">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="login-username" type="text" required>
+                                <label for="login-username">Nazwa użytkownika</label>
+                            </div>
+                            <div class="input-field">
+                                <i class="material-icons prefix">lock</i>
+                                <input id="login-password" type="password" required>
+                                <label for="login-password">Hasło</label>
+                            </div>
+                            <button type="submit" class="btn blue waves-effect waves-light w-100">Zaloguj się</button>
+                        </form>
+                    </div>
+                    <div class="card-action center-align">
+                        <a href="#" id="show-register-btn">Nie masz konta? Zarejestruj się</a>
+                    </div>
+                </div>
+
+                <div class="card hoverable hide" id="register-card">
+                    <div class="card-content">
+                        <span class="card-title center-align blue-text text-darken-2">Rejestracja</span>
+                        <form id="register-form">
+                            <div class="input-field">
+                                <i class="material-icons prefix">person</i>
+                                <input id="reg-username" type="text" required>
+                                <label for="reg-username">Nazwa użytkownika</label>
+                            </div>
+                            <div class="input-field">
+                                <i class="material-icons prefix">email</i>
+                                <input id="reg-email" type="email" required>
+                                <label for="reg-email">Email</label>
+                            </div>
+                            <div class="input-field">
+                                <i class="material-icons prefix">lock_outline</i>
+                                <input id="reg-password" type="password" required>
+                                <label for="reg-password">Hasło</label>
+                            </div>
+                            <div class="input-field">
+                                <i class="material-icons prefix">lock</i>
+                                <input id="reg-password-confirm" type="password" required>
+                                <label for="reg-password-confirm">Powtórz hasło</label>
+                            </div>
+                            <button type="submit" class="btn green waves-effect waves-light w-100">Załóż konto</button>
+                        </form>
+                    </div>
+                    <div class="card-action center-align">
+                        <a href="#" id="show-login-btn">Masz już konto? Zaloguj się</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="app-container" class="hide">
+        <nav class="blue darken-2">
+            <div class="nav-wrapper container">
+                <a href="#" class="brand-logo hide-on-small-only">ToDo Manager</a>
+                <a href="#" class="brand-logo show-on-small hide-on-med-and-up" style="font-size: 1.2rem;">ToDo</a>
+                <ul id="nav-mobile" class="right">
+                    <li><a href="#"><i class="material-icons left">person</i><span id="nav-user-name">User</span></a></li>
+                    <li><a href="#" id="logout-btn" title="Wyloguj"><i class="material-icons">exit_to_app</i></a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container section">
+            <div class="row mb-0">
+                <div class="col s12">
+                    <h5 class="grey-text text-darken-2">Twoje Zadania <span class="new badge blue" data-badge-caption="aktywnych" id="task-counter">0</span></h5>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Nowe Zadanie</span>
+                    <form id="task-form">
+                        <div class="row mb-0">
+                            <div class="input-field col s12 m6">
+                                <input id="title" type="text" class="validate" required>
+                                <label for="title">Tytuł zadania *</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="assignee" type="text">
+                                <label for="assignee">Wykonawca</label>
+                            </div>
+                        </div>
+                        <div class="row mb-0">
+                            <div class="input-field col s12">
+                                <textarea id="description" class="materialize-textarea"></textarea>
+                                <label for="description">Opis</label>
+                            </div>
+                        </div>
+                        <div class="row mb-0">
+                            <div class="input-field col s12 m4">
+                                <select id="priority">
+                                    <option value="low">Niski</option>
+                                    <option value="medium" selected>Średni</option>
+                                    <option value="high">Wysoki</option>
+                                </select>
+                                <label>Priorytet</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input id="deadline" type="text" class="datepicker">
+                                <label for="deadline">Termin</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input id="category" type="text">
+                                <label for="category">Kategoria/Tagi</label>
+                            </div>
+                        </div>
+                        <div class="card-action right-align">
+                            <button type="submit" class="btn blue waves-effect waves-light">Dodaj</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row valign-wrapper">
+                <div class="col s12 m8">
+                    <div class="filter-buttons">
+                        <button class="btn-small waves-effect waves-light blue darken-1 filter-btn" data-filter="all">Wszystkie</button>
+                        <button class="btn-small waves-effect waves-light blue lighten-2 filter-btn" data-filter="active">Aktywne</button>
+                        <button class="btn-small waves-effect waves-light green lighten-1 filter-btn" data-filter="completed">Zakończone</button>
+                    </div>
+                </div>
+                <div class="col s12 m4">
+                    <div class="input-field" style="margin-top: 0;">
+                        <i class="material-icons prefix">search</i>
+                        <input id="search" type="text">
+                        <label for="search">Szukaj...</label>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="collection with-header" id="task-list"></ul>
+        </div>
+    </div>
+
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <h4>Edytuj Zadanie</h4>
+            <form id="edit-form">
+                <input type="hidden" id="edit-id">
+                <div class="input-field">
+                    <input id="edit-title" type="text" required>
+                    <label for="edit-title" class="active">Tytuł</label>
+                </div>
+                <div class="input-field">
+                    <textarea id="edit-description" class="materialize-textarea"></textarea>
+                    <label for="edit-description" class="active">Opis</label>
+                </div>
+                <div class="input-field">
+                    <input id="edit-assignee" type="text">
+                    <label for="edit-assignee" class="active">Wykonawca</label>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <select id="edit-priority">
+                            <option value="low">Niski</option>
+                            <option value="medium">Średni</option>
+                            <option value="high">Wysoki</option>
+                        </select>
+                        <label>Priorytet</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="edit-deadline" type="text" class="datepicker">
+                        <label for="edit-deadline" class="active">Deadline</label>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <input id="edit-category" type="text">
+                    <label for="edit-category" class="active">Kategoria</label>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Anuluj</a>
+            <a href="#!" id="save-edit-btn" class="waves-effect waves-light btn blue">Zapisz</a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
